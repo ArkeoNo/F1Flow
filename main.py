@@ -10,9 +10,8 @@ bot = commands.Bot(command_prefix=config['prefix'])
 ff1.Cache.enable_cache('./data/cache')
 
 #Pour les tests, le GP utilisé est celui de Bahrein de l'année dernière
-#session = ff1.get_session(2021, 1)
-#print(f'Session chargée : {session.name}')
-
+session = ff1.get_session(2022, 1)
+print(f'Session chargée : {session.name}')
 @bot.event
 async def on_ready():
     print(f'{bot.user} Connecté à Discord')
@@ -20,6 +19,6 @@ async def on_ready():
 @bot.command()
 async def bet(ctx, *args):
     bet = await fbet(ctx, args)
-    print(bet)
+    print(f'Nouveau paris de "{ctx.author}"{bet}')
 
 bot.run(config['token'])

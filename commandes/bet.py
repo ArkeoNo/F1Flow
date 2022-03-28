@@ -21,8 +21,9 @@ async def fbet(ctx, args):
             p3 = args[3]
             if p1 in np_pilote and p2 in np_pilote and p3 in np_pilote :
                 await ctx.send('Good')
-                bet =  {"id" : ctx.author.id, "amount" : somme, "podium" : [p1, p2, p3]}
-                return bet
+                bet =  {"ctx" : ctx.guild.id ,"id" : ctx.author.id, "amount" : somme, "podium" : [p1, p2, p3]}
+                with open('./data/Ubet.json') as data :
+                    json.dump(bet, data)
             else : 
                 await ctx.send('Erreur de Syntaxe  - code : B03 .. \n l\'un des ID Pilote est faux, pour rappel il faut utiliser les numéros permanant des pilotes')
         else : 
