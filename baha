@@ -1,0 +1,11 @@
+c.execute("""CREATE TABLE bets (
+  servid integer,
+ id integer,
+ ammount integer,
+ podium text
+)""")
+
+c.execute("""CREATE TABLE users (
+ id integer,
+ ammount integer
+)""")
