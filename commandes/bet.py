@@ -1,6 +1,6 @@
 import commandes.db as db
 
-np_pilote = ['1', '3', '4', '5', '6', '10','11', '14', '16', '18', '20', '22', '23', '24', '31', '44', '47', '55', '63', '77']
+np_pilote = ['1', '3', '4', '5', '6', '10','11', '14', '16', '18', '20', '22', '23', '24', '31', '33', '44', '47', '55', '63', '77']
 
 def tryint(string) :
     try : 
@@ -14,12 +14,13 @@ async def fbet(ctx, args):
         somme = args[0]
         if tryint(somme) :
             somme = int(somme)
-            p1 = args[1]
-            p2 = args[2]
-            p3 = args[3]
-            if p1 in np_pilote and p2 in np_pilote and p3 in np_pilote : 
-                bet = [ctx.author.id, somme,f'{p1}-{p2}-{p3}' ] 
+            pod = [args[1], args[2], args[3]]
+            podium = '-'.join([str(item) for item in pod ])
+            if pod[0] in np_pilote and pod[1] in np_pilote and pod[2] in np_pilote : 
+                bet = [ctx.author.id, somme, podium] 
+                print(bet)
                 await db.add(bet)
+                await ctx.send('paris sauvgardé')
             else : 
                 await ctx.send('Erreur de Syntaxe  - code : B03 .. \n l\'un des ID Pilote est incorect, pour rappel il faut utiliser les numéros permanant des pilotes')
         else : 
