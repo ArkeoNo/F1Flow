@@ -14,14 +14,22 @@ async def add(bet) : #  Fonction pour ajouter un paris à la DB
         c.execute("INSERT INTO bets VALUES (?,?,?)", bet)
     conn.commit()
 
-async def read() : #Fonction pour récuper les paris sauvgardé
+async def read_bets() : #Fonction pour récuper les paris sauvgardé
     bets = []    
     p = c.execute("SELECT * FROM bets")
     for bet in p :
         bets.append(bet)
     return bets
 
-async def UPDATE_User_Ammount(user): # Fonction pour Mettre à jour la somme d'un joueur
+async def READ_User_data(user) :
+    lignes = []
+    d = c.execute(f"SELECT * FROM users WHERE id = {user}")
+    for ligne in d :
+        lignes.append(ligne)
+    u = ligne
+    return u
+
+async def UPDATE_User_Ammount(user): # Fonction pour Mettre à jour les points d'un Joueur
     lignes = []
     d = c.execute(f"SELECT * FROM users WHERE id = {user[0]} ")
     for ligne in d :
@@ -34,17 +42,17 @@ async def UPDATE_User_Ammount(user): # Fonction pour Mettre à jour la somme d'u
         c.execute("INSERT INTO users VALUES (?,?)", u)
     conn.commit()
 
-async def close(save):
+async def close(save): # Ferme la connection avec la DB
     if save :
         conn.commit()
     conn.close()
 
-async def del_bets():
+async def del_bets(): # VIDE la table de PARIS
     c.execute("DELETE FROM bets")
     conn.commit()
     print('Table des paris vidée')
 
-async def del_users():
+async def del_users(): # VIDE la table des UTILISATEUR
     c.execute("DELETE FROM users")
     conn.commit()
     print('Table des utilisateur vidée')
